@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste Patients{% endblock %}
+
+{% block body %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Patients</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                              <thead>
+                                <tr>
+                                  <th>Nom</th>
+                                  <th>Prénom</th>
+                                  <th>Date de naissance</th>
+                                  <th>Date dernier RDV</th>
+                                  <th>Nombre de photos</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {% for patient in patients %}
+                                <tr>
+                                     <td>{{ patient.nom }}</td>
+                                     <td>{{ patient.prenom }}</td>
+                                     <td>{{ patient.datenaissance|date('y/m/d')}}</td>
+                                     <td>{{ patient.lastupdate|date('y/m/d')}}</td>
+                                     <td>{{ patient.photos|length }}</td>
+                                     <td>
+                                         <a  class="btn  btn-primary " href="{{ path('photo', {'id': patient.id}) }}">Photo</a>
+                                         <a  class=" btn  btn-secondary " href="{{ path('patient_edit_id', {'id': patient.id}) }}">Éditer</a>
+                                         <a  class="btn  btn-info " href="{{ path('gallerie_by_patient', {'id': patient.id}) }}">Galerie</a>
+                                     </td>
+                                </tr>
+                                {% endfor %}
+                              </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        <!-- /.container-fluid -->
+        </div>
+
+</div>
+{% endblock %}

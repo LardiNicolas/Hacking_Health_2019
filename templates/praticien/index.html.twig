@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PraticienController!{% endblock %}
+
+{% block body %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Particiens</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                                <thead>
+                                    <tr role="row">
+                                        <th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 68px;">Prénom</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 93px;">Nom</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 52px;">Naissance</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 52px;">Photos</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 52px;">action</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th rowspan="1" colspan="1">Prénom</th>
+                                        <th rowspan="1" colspan="1">Nom</th>
+                                        <th rowspan="1" colspan="1">Naissance</th>
+                                        <th rowspan="1" colspan="1">Photos</th>
+                                        <th rowspan="1" colspan="1">Action</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                {% for praticien in particiens %}
+                                <tr role="row" class="even">
+                                    <td class="sorting_1">{{ praticien.prenom }}</td>
+                                    <td class="sorting_1">{{ praticien.nom }}</td>
+                                    <td class="sorting_1">{{ praticien.email }}</td>
+                                    <td class="sorting_1"><a href="{{ path('gallerie_by_praticien', {'id': praticien.id}) }}">{{ praticien.photos|length }}</a></td>
+                                    <td class="sorting_1"><a href="{{ path('praticien_edit_id', {'id': praticien.id}) }}">edit</a></td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

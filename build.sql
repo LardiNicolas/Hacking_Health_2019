@@ -1,0 +1,55 @@
+DROP TABLE PREDIAGNOSTIQUE;
+DROP TABLE DIAGNOSTIQUE;
+DROP TABLE NOMPHOTO;
+DROP TABLE PHOTO;
+DROP TABLE PATIENT;
+DROP TABLE PRO;
+
+
+CREATE TABLE PATIENT(
+    id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    nom VARCHAR(30) NOT NULL,
+    prenom VARCHAR(30) NOT NULL,
+    dateNaissance DATE NOT NULL,
+    lastUpdate datetime default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE PRO(
+    id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    nom VARCHAR(30) NOT NULL,
+    prenom VARCHAR(30) NOT NULL
+);
+
+CREATE TABLE PHOTO(    
+    idPhoto INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    id INTEGER,
+    FOREIGN KEY (id) REFERENCES PATIENT(id),
+    idPro INTEGER,
+    FOREIGN KEY (idPro) REFERENCES PRO(id)
+);
+
+CREATE TABLE NOMPHOTO(
+    nom varchar(30) primary key not null,
+    id integer not null,
+    foreign key (id) references PHOTO(idPhoto)
+);
+
+
+CREATE TABLE PREDIAGNOSTIQUE(
+    id integer primary key not null AUTO_INCREMENT,
+    idPhoto INTEGER NOT NULL,
+    FOREIGN KEY (idPhoto) REFERENCES PHOTO(idPhoto),
+    prediagnostique varchar(30) NOT NULL
+);
+
+CREATE TABLE DIAGNOSTIQUE(
+    id int primary key not null AUTO_INCREMENT,
+    idPhoto INTEGER NOT NULL,
+    FOREIGN KEY (idPhoto) REFERENCES PHOTO(idPhoto),
+    diagnostique varchar(30) NOT NULL
+);
+
+
+CREATE INDEX IPATIENT ON PATIENT (id);
+CREATE INDEX IPRO ON PRO (id);
+CREATE INDEX IPHOTO ON PHOTO (idPhoto);
